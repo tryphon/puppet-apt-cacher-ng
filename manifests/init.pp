@@ -1,8 +1,15 @@
 class apt-cacher-ng {
 
-  package { apt-cacher-ng: }
+  $real_apt_cacher_version = $ensure_apt_cacher ? {
+    '' => "installed",
+    default => $ensure_apt_cacher
+  }
 
-  service { apt-cacher-ng: 
+  package { apt-cacher-ng:
+    ensure => $real_apt_cacher_version
+  }
+
+  service { apt-cacher-ng:
     ensure => running,
     require => Package[apt-cacher-ng]
   }
