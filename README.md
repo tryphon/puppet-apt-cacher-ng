@@ -78,6 +78,10 @@ otherwise, according to [askubuntu:54099].
 
 To perform a [smoke test]: 
 
+    make smoke
+
+To smoke test both the module and the `Vagrantfile`'s `manifest_file`:
+
     make test
 
 To test the module properly, install [Vagrant] and:
