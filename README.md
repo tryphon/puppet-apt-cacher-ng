@@ -9,30 +9,29 @@ Maintainer of this fork: [Garth Kidd]
 
 ## Installation in Production
 
-To install the Puppet module so you can provide an apt cache for your
-environment: 
+* Clone the module into your `/etc/puppet/modules` directory:
 
-    cd /etc/puppet/modules
-    git clone git://github.com/garthk/puppet-apt-cacher-ng apt-cacher-ng
+        cd /etc/puppet/modules
+        git clone git://github.com/garthk/puppet-apt-cacher-ng apt-cacher-ng
 
-To deploy the server:
+* Edit the definition for your server to include `apt-cacher-ng`:
 
-    class { 'apt-cacher-ng':
-    }
+        class { 'apt-cacher-ng':
+        }
+
+* Edit the definition for your clients to include `apt-cacher-ng::client`:
+
+        class { 'apt-cacher-ng::client':
+          server_url => "http://192.168.31.42:3142",
+        }
 
 The server will be available at the default port (3142).
-
-**WARNING:** the server won't, by default, use itself as a cache.
-
-To use the server from a client (or, from itself):
-
-    class { 'apt-cacher-ng::client':
-      server_url => "http://192.168.31.42:3142",
-    }
 
 If you need to use use the proxy if it's available but fetch directly
 otherwise, see [askubuntu:54099] for `Acquire::http::ProxyAutoDetect`
 configuration details and a suitable script. 
+
+**WARNING:** the server will not, by default, use itself as a cache.
 
 ## Providing an apt cache for your Vagrant virtual machines
 
