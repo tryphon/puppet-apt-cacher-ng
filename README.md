@@ -14,9 +14,11 @@ Maintainer of this fork: [Garth Kidd]
         cd /etc/puppet/modules
         git clone git://github.com/garthk/puppet-apt-cacher-ng apt-cacher-ng
 
-* Edit the definition for your server to include `apt-cacher-ng`:
+* Edit the definition for your server to include `apt-cacher-ng`, perhaps
+  specifying `version`:
 
         class { 'apt-cacher-ng':
+          # version => '0.4.6-1ubuntu1',
         }
 
 * Edit the definition for your clients to include `apt-cacher-ng::client`:
