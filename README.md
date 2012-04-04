@@ -22,6 +22,18 @@ To deploy the server:
 
 The server will be available at the default port (3142).
 
+To use it from your clients:
+
+    $aptcache_url = "http://192.168.31.42:3142"
+    file { "/etc/apt/apt.conf.d/71proxy": 
+      owner   => root,
+      group   => root,
+      mode    => '0644',
+      content => 'Acquire::http { Proxy "${aptcache_url}"; };',
+    }
+
+(Of course, I plan to put this in the module, too...)
+
 ## Providing an apt cache for your Vagrant virtual machines
 
 To install apt-cacher-ng on a fresh box in [Vagrant]:
@@ -45,9 +57,19 @@ To configure your own Vagrant box to access the `aptcache` box:
     Don't use `1`: it'll probably be used by your host OS for its `vboxnet0`
     adapter.)
 
-* Create `/etc/apt/apt.conf.d/71proxy` with the line:
+* Inside your box, create `/etc/apt/apt.conf.d/71proxy` with the line:
 
         Acquire::http { Proxy "http://192.168.31.42:3142"; };
+
+    If you're using [Puppet Provisioning], put this in your `manifest_file`, 
+    e.g. `my_manifest.pp`:
+
+        file { "/etc/apt/apt.conf.d/71proxy": 
+          owner   => root,
+          group   => root,
+          mode    => '0644',
+          content => 'Acquire::http { Proxy "http://192.168.31.42:3142"; };',
+        }
 
 It's also possible to use the proxy if it's available but fetch directly
 otherwise, according to [askubuntu:54099]. 
@@ -69,3 +91,4 @@ To test the module properly, install [Vagrant] and:
 [Vagrant]: http://vagrantup.com/
 [host-only networking]: http://vagrantup.com/docs/host_only_networking.html
 [askubuntu:54099]: http://askubuntu.com/a/54099
+[Puppet Provisioning]: http://vagrantup.com/docs/provisioners/puppet.html
