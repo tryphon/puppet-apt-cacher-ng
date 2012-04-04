@@ -22,17 +22,17 @@ To deploy the server:
 
 The server will be available at the default port (3142).
 
-To use it from your clients:
+**WARNING:** the server won't, by default, use itself as a cache.
 
-    $aptcache_url = "http://192.168.31.42:3142"
-    file { "/etc/apt/apt.conf.d/71proxy": 
-      owner   => root,
-      group   => root,
-      mode    => '0644',
-      content => 'Acquire::http { Proxy "${aptcache_url}"; };',
+To use the server from a client (or, from itself):
+
+    class { 'apt-cacher-ng::client':
+      server_url => "http://192.168.31.42:3142",
     }
 
-(Of course, I plan to put this in the module, too...)
+If you need to use use the proxy if it's available but fetch directly
+otherwise, see [askubuntu:54099] for `Acquire::http::ProxyAutoDetect`
+configuration details and a suitable script. 
 
 ## Providing an apt cache for your Vagrant virtual machines
 
@@ -71,8 +71,8 @@ To configure your own Vagrant box to access the `aptcache` box:
           content => 'Acquire::http { Proxy "http://192.168.31.42:3142"; };',
         }
 
-It's also possible to use the proxy if it's available but fetch directly
-otherwise, according to [askubuntu:54099]. 
+    You could also install the Puppet module and use `apt-cacher-ng::client`
+    as above. 
 
 ## Testing
 
