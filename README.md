@@ -7,6 +7,8 @@ Original author: [Alban Peignier]
 
 Maintainer of this fork: [Garth Kidd]
 
+Also incorporating changes by: [Gabriel Filion]
+
 ## Installation in Production
 
 * Clone the module into your `/etc/puppet/modules` directory:
@@ -93,6 +95,7 @@ To test the module properly, install [Vagrant] and:
 [smoke test]: http://docs.puppetlabs.com/guides/tests_smoke.htm
 [Alban Peignier]: https://github.com/albanpeignier
 [Garth Kidd]: https://github.com/garthk
+[Gabriel Filion]: https://github.com/lelutin
 [Vagrant]: http://vagrantup.com/
 [host-only networking]: http://vagrantup.com/docs/host_only_networking.html
 [askubuntu:54099]: http://askubuntu.com/a/54099
