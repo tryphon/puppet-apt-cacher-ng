@@ -50,6 +50,9 @@ Other contributors:
           server     => "192.168.31.42:3142",
         }
 
+    Per [askubuntu:54099], you'll need to do this on older Ubuntu and Debian
+    releases. Lucid and Squeeze support `Acquire::http::ProxyAutoDetect`;
+    Karmic and Lenny don't.
 
 ## Providing an apt cache for your Vagrant virtual machines
 
