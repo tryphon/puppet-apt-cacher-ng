@@ -7,7 +7,10 @@ Original author: [Alban Peignier]
 
 Maintainer of this fork: [Garth Kidd]
 
-Also incorporating changes by: [Gabriel Filion]
+Other contributors:
+
+* [Gabriel Filion]: version specification, file layout flexibility
+* [Lekensteyn]: auto-detect/fallback script (see [askubuntu:54099])
 
 ## Installation in Production
 
@@ -22,6 +25,11 @@ Also incorporating changes by: [Gabriel Filion]
         class { 'apt-cacher-ng':
           # version => '0.4.6-1ubuntu1',
         }
+
+    The server will be available at the default port (3142).
+
+    The server will use itself as a cache, and perfom an `apt-get update`. 
+    It will *not* perform an `apt-get upgrade`. 
 
 * Edit the definition for your clients to include `apt-cacher-ng::client`:
 
@@ -42,9 +50,6 @@ Also incorporating changes by: [Gabriel Filion]
           server     => "192.168.31.42:3142",
         }
 
-The server will be available at the default port (3142).
-
-**WARNING:** the server will not, by default, use itself as a cache.
 
 ## Providing an apt cache for your Vagrant virtual machines
 
@@ -105,6 +110,7 @@ To test the module properly, install [Vagrant] and:
 [Alban Peignier]: https://github.com/albanpeignier
 [Garth Kidd]: https://github.com/garthk
 [Gabriel Filion]: https://github.com/lelutin
+[Lekensteyn]: http://www.lekensteyn.nl/
 [Vagrant]: http://vagrantup.com/
 [host-only networking]: http://vagrantup.com/docs/host_only_networking.html
 [askubuntu:54099]: http://askubuntu.com/a/54099

@@ -24,11 +24,8 @@ class test_server {
   class { 'apt-cacher-ng':
   }
 
-  file { "/etc/apt/apt.conf.d/71proxy": 
-    owner   => root,
-    group   => root,
-    mode    => '0644',
-    content => 'Acquire::http { Proxy "http://192.168.31.42:3142"; };',
+  class { 'apt-cacher-ng::client':
+    server => "127.0.0.1:3142",
   }
 }
 
