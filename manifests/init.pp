@@ -9,9 +9,9 @@ class apt-cacher-ng($version = 'installed') {
   }
 
   file { "/etc/apt-cacher-ng/acng.conf":
-    source => ["puppet:///site-apt-cacher-ng/$fqdn/acng.conf",
-               "puppet:///site-apt-cacher-ng/acng.conf",
-               "puppet:///apt-cacher-ng/acng.conf"],
+    source => ["puppet:///modules/site-apt-cacher-ng/$fqdn/acng.conf",
+               "puppet:///modules/site-apt-cacher-ng/acng.conf",
+               "puppet:///modules/apt-cacher-ng/acng.conf"],
     notify  => Service['apt-cacher-ng'],
     require => Package['apt-cacher-ng'],
   }
