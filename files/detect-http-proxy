@@ -11,7 +11,7 @@ CONF=/etc/apt/proxy.conf
 if [ -f $CONF ]; then
   source $CONF
   if [ -z "$show_proxy_messages" ]; then
-    show_proxy_messages = 1
+    show_proxy_messages=1
   fi
   if [ -z "$try_proxies" ]; then
     echo try_proxies missing in $CONF >&2
