@@ -28,8 +28,7 @@ Other contributors:
 
     The server will be available at the default port (3142).
 
-    The server will use itself as a cache, and perfom an `apt-get update`. 
-    It will *not* perform an `apt-get upgrade`. 
+    The server will not use itself as a cache by default. 
 
 * Edit the definition for your clients to include `apt-cacher-ng::client`:
 
