@@ -28,7 +28,11 @@ print_msg() {
 
 for proxy in "${try_proxies[@]}"; do
     # if the host machine / proxy is reachable...
-    if nc -w 2 -z ${proxy/:/ }; then
+    <% if @timeout %>
+    if nc -w <%= @timeout %> -z ${proxy/:/ }; then
+    <% else %>
+    if nc -z ${proxy/:/ }; then
+    <% end %>
         proxy=http://$proxy
         print_msg "Proxy that will be used: $proxy"
         echo "$proxy"

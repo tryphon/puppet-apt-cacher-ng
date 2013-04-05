@@ -1,4 +1,4 @@
-class apt-cacher-ng::client($server = "", $servers = "", $autodetect = true, $verbose = true) {
+class apt-cacher-ng::client($server = "", $servers = "", $autodetect = true, $verbose = true, $timeout = undef) {
   File {
     owner  => root,
     group  => root,
@@ -49,7 +49,7 @@ class apt-cacher-ng::client($server = "", $servers = "", $autodetect = true, $ve
         }
       }
       file { "/etc/apt/detect-http-proxy": 
-        source => "puppet:///modules/apt-cacher-ng/detect-http-proxy",
+        content => template("apt-cacher-ng/detect-http-proxy.erb"),
         mode   => '0755',
       }
       file { "/etc/apt/proxy.conf":
