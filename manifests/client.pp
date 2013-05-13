@@ -1,4 +1,4 @@
-class apt-cacher-ng::client($server = "", $servers = "", $autodetect = true, $verbose = true, $timeout = undef) {
+class apt-cacher-ng::client($server = "", $servers = "", $autodetect = true, $verbose = true, $timeout = 30) {
   File {
     owner  => root,
     group  => root,
@@ -47,6 +47,9 @@ class apt-cacher-ng::client($server = "", $servers = "", $autodetect = true, $ve
             default: { fail("cannot specify both server and servers") }
           }
         }
+      }
+      if (!is_integer($timeout)) {
+        fail("timeout must be an integer")
       }
       file { "/etc/apt/detect-http-proxy": 
         content => template("apt-cacher-ng/detect-http-proxy.erb"),

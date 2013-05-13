@@ -3,6 +3,8 @@
 A Puppet module for [apt-cacher-ng], with a `Vagrantfile` for quick
 deployment on [Vagrant].
 
+Requires puppetlabs 'stdlib' module
+
 Original author: [Alban Peignier]
 
 Maintainer of this fork: [Garth Kidd]
@@ -18,6 +20,11 @@ Other contributors:
 
         cd /etc/puppet/modules
         git clone git://github.com/garthk/puppet-apt-cacher-ng apt-cacher-ng
+
+* Install stdlib dependency (if not already present):
+        
+        cd /etc/puppet/modules
+        git clone git://github.com/puppetlabs/puppetlabs-stdlib.git stdlib
 
 * Edit the definition for your server to include `apt-cacher-ng`, perhaps
   specifying `version`:
@@ -40,6 +47,13 @@ Other contributors:
 
         class { 'apt-cacher-ng::client':
           servers => ["192.168.30.42:3142", "192.168.31.42:3142"],
+        }
+
+* To override proxy connection timeout:
+
+        class { 'apt-cacher-ng::client':
+          server  => "192.168.31.42:3142",
+          timeout => 15,
         }
 
 * To disable fallback to direct access if the proxy is not available:
