@@ -28,7 +28,7 @@ print_msg() {
 
 for proxy in "${try_proxies[@]}"; do
     # if the host machine / proxy is reachable...
-    if nc -z ${proxy/:/ }; then
+    if nc -w 2 -z ${proxy/:/ }; then
         proxy=http://$proxy
         print_msg "Proxy that will be used: $proxy"
         echo "$proxy"
