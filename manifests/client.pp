@@ -6,8 +6,14 @@ class apt_cacher_ng::client (
   $timeout = $apt_cacher_ng::client::params::timeout
 ) inherits apt_cacher_ng::client::params {
 
+  validate_array($servers)
+  validate_bool($autodetect)
+  validate_bool($verbose)
+  if !is_integer($timeout) {
+    fail('Parameter $timeout is expected to be an integer value')
+  }
+
   anchor { 'begin': } ->
   class { 'apt_cacher_ng::client::config': } ->
   anchor { 'end': }
-
 }
