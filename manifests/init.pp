@@ -1,11 +1,11 @@
-class apt-cacher-ng (
+class apt_cacher_ng (
   $version = 'installed'
 ) {
 
   anchor { 'begin': } ->
-  class { 'apt-cacher-ng::install': } ->
-  class { 'apt-cacher-ng::config': } ~>
-  class { 'apt-cacher-ng::service': } ->
+  class { 'apt_cacher_ng::install': } ->
+  class { 'apt_cacher_ng::config': } ~>
+  class { 'apt_cacher_ng::service': } ->
   anchor { 'end': }
 
 }

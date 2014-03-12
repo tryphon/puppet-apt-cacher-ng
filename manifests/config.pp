@@ -1,10 +1,10 @@
-class apt-cacher-ng::config {
+class apt_cacher_ng::config {
 
   file { '/etc/apt-cacher-ng/acng.conf':
     source => [
-      "puppet:///modules/site-apt-cacher-ng/${::fqdn}/acng.conf",
-      'puppet:///modules/site-apt-cacher-ng/acng.conf',
-      'puppet:///modules/apt-cacher-ng/acng.conf'
+      "puppet:///modules/site_apt_cacher_ng/${::fqdn}/acng.conf",
+      'puppet:///modules/site_apt_cacher_ng/acng.conf',
+      'puppet:///modules/apt_cacher_ng/acng.conf'
     ],
   }
 

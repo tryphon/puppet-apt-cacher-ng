@@ -1,4 +1,4 @@
-class apt-cacher-ng::client::params {
+class apt_cacher_ng::client::params {
 
   $server = ""
   $servers = ""

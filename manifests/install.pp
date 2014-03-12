@@ -1,7 +1,7 @@
-class apt-cacher-ng::install {
+class apt_cacher_ng::install {
 
   package { 'apt-cacher-ng':
-    ensure => $apt-cacher-ng::version,
+    ensure => $apt_cacher_ng::version,
   }
 
 }
