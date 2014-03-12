@@ -9,7 +9,7 @@ Original author: [Alban Peignier]
 
 Other contributors:
 
-* [Garth Kidd]: autodetect script and logic
+* [Garth Kidd]: Vagrantfile and smoke tests
 * [Gabriel Filion]: version specification, file layout flexibility
 * [Lekensteyn]: auto-detect/fallback script (see [askubuntu:54099])
 
