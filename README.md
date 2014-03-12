@@ -18,9 +18,11 @@ Other contributors:
 The apt\_cacher\_ng module provides two main "entry points": one for the server
 and one for clients.
 
-* The main class, `apt_cacher_ng` will install the apt_cacher_ng server. You can
-  simply include the class, or if you want to install a specific version you can
-  use the `version` parameter like the following:
+### Server
+
+The main class, `apt_cacher_ng` will install the apt_cacher_ng server. You can
+simply include the class, or if you want to install a specific version you can
+use the `version` parameter like the following:
 
     ```puppet
     class { 'apt_cacher_ng':
@@ -28,21 +30,22 @@ and one for clients.
     }
     ```
 
-    The server will be available on the default port (3142).
+* The server will be available on the default port (3142).
+* The server will not use itself as a cache by default.
 
-    The server will not use itself as a cache by default.
+### Client
 
-* The class `apt_cacher_ng::client` helps you configure a server as a client
-  for an apt proxy. It has two "modes" of configuration: setting up one proxy
-  with no alternative, and setting up a list of proxies where the first in the
-  list that is currently available will be used (autodetection).
+The class `apt_cacher_ng::client` helps you configure a server as a client
+for an apt proxy. It has two "modes" of configuration: setting up one proxy
+with no alternative, and setting up a list of proxies where the first in the
+list that is currently available will be used (autodetection).
 
-  Both modes use the `servers` parameter to the `apt_cacher_ng::client` class.
-  This parameter should be an array that contains server strings. The servers
-  strings are fqdn (or IP address) and port in the same mannger as you'd write
-  it for HTTP, without the "http://" prefix.
+Both modes use the `servers` parameter to the `apt_cacher_ng::client` class.
+This parameter should be an array that contains server strings. The servers
+strings are fqdn (or IP address) and port in the same mannger as you'd write
+it for HTTP, without the "http://" prefix.
 
-  To setup one proxy with no fallback, set the `autodetect` parameter to
+* To setup one proxy with no fallback, set the `autodetect` parameter to
   `false` and make sure to provide only one server value for the `servers`
   parameter:
 
@@ -53,11 +56,11 @@ and one for clients.
     }
     ```
 
-    Per [askubuntu:54099], you'll need to do this on older Ubuntu and Debian
-    releases. Lucid and Squeeze support `Acquire::http::ProxyAutoDetect`;
-    Karmic and Lenny don't.
+  Per [askubuntu:54099], you'll need to do this on older Ubuntu and Debian
+  releases. Lucid and Squeeze support `Acquire::http::ProxyAutoDetect`;
+  Karmic and Lenny don't.
 
-  To setup a list of proxies, keep the `autodetect` paramter to a value of
+* To setup a list of proxies, keep the `autodetect` paramter to a value of
   `true` (this is the default value) and specify all servers in the `servers`
   parameter:
 
