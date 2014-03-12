@@ -1,9 +1,9 @@
-# puppet-apt-cacher-ng
+# puppet-apt_cacher_ng
 
 A Puppet module for [apt-cacher-ng], with a `Vagrantfile` for quick
 deployment on [Vagrant].
 
-Requires puppetlabs 'stdlib' module
+Requires puppetlabs [stdlib] module
 
 Original author: [Alban Peignier]
 
@@ -19,49 +19,59 @@ Other contributors:
 * Clone the module into your `/etc/puppet/modules` directory:
 
         cd /etc/puppet/modules
-        git clone git://github.com/garthk/puppet-apt-cacher-ng apt-cacher-ng
+        git clone git://github.com/lelutin/puppet-apt_cacher_ng apt_cacher_ng
 
 * Install stdlib dependency (if not already present):
         
         cd /etc/puppet/modules
         git clone git://github.com/puppetlabs/puppetlabs-stdlib.git stdlib
 
-* Edit the definition for your server to include `apt-cacher-ng`, perhaps
+* Edit the definition for your server to include `apt_cacher_ng`, perhaps
   specifying `version`:
 
-        class { 'apt-cacher-ng':
-          # version => '0.4.6-1ubuntu1',
-        }
+    ```puppet
+    class { 'apt_cacher_ng':
+      version => '0.4.6-1ubuntu1',
+    }
+    ```
 
     The server will be available at the default port (3142).
 
-    The server will not use itself as a cache by default. 
+    The server will not use itself as a cache by default.
 
-* Edit the definition for your clients to include `apt-cacher-ng::client`:
+* Edit the definition for your clients to include `apt_cacher_ng::client`:
 
-        class { 'apt-cacher-ng::client':
-          server  => "192.168.31.42:3142",
-        }
+    ```puppet
+    class { 'apt_cacher_ng::client':
+      server  => "192.168.31.42:3142",
+    }
+    ```
 
 * To specify more than one server:
 
-        class { 'apt-cacher-ng::client':
-          servers => ["192.168.30.42:3142", "192.168.31.42:3142"],
-        }
+    ```puppet
+    class { 'apt_cacher_ng::client':
+      servers => ["192.168.30.42:3142", "192.168.31.42:3142"],
+    }
+    ```
 
 * To override proxy connection timeout:
 
-        class { 'apt-cacher-ng::client':
-          server  => "192.168.31.42:3142",
-          timeout => 15,
-        }
+    ```puppet
+    class { 'apt_cacher_ng::client':
+      server  => "192.168.31.42:3142",
+      timeout => 15,
+    }
+    ```
 
 * To disable fallback to direct access if the proxy is not available:
 
-        class { 'apt-cacher-ng::client':
-          autodetect => false,
-          server     => "192.168.31.42:3142",
-        }
+    ```puppet
+    class { 'apt_cacher_ng::client':
+      autodetect => false,
+      server     => "192.168.31.42:3142",
+    }
+    ```
 
     Per [askubuntu:54099], you'll need to do this on older Ubuntu and Debian
     releases. Lucid and Squeeze support `Acquire::http::ProxyAutoDetect`;
@@ -104,8 +114,8 @@ To configure your own Vagrant box to access the `aptcache` box:
           content => 'Acquire::http { Proxy "http://192.168.31.42:3142"; };',
         }
 
-    You could also install the Puppet module and use `apt-cacher-ng::client`
-    as above. 
+    You could also install the Puppet module and use `apt_cacher_ng::client`
+    as above.
 
 ## Testing
 
@@ -123,6 +133,7 @@ To test the module properly, install [Vagrant] and:
 
 [apt-cacher-ng]: http://www.unix-ag.uni-kl.de/~bloch/acng/
 [smoke test]: http://docs.puppetlabs.com/guides/tests_smoke.htm
+[stdlib]: https://github.com/puppetlabs/puppetlabs-stdlib
 [Alban Peignier]: https://github.com/albanpeignier
 [Garth Kidd]: https://github.com/garthk
 [Gabriel Filion]: https://github.com/lelutin
