@@ -1,7 +1,6 @@
 class apt_cacher_ng::client::params {
 
-  $server = ''
-  $servers = ''
+  $servers = ['127.0.0.1']
   $autodetect = true
   $verbose = true
   $timeout = 30

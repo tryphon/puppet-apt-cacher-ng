@@ -7,17 +7,10 @@ class apt_cacher_ng::client::config {
     mode   => '0644',
   }
 
-  if $apt_cacher_ng::client::autodetect {
-    case $apt_cacher_ng::client::server {
-      '': { fail('server not specified') }
-      default: { }
-    }
-    case $apt_cacher_ng::client::servers {
-      '': { }
-      default: { fail('servers must only be specified with autodetect=true') }
-    }
+  if ! $apt_cacher_ng::client::autodetect {
+    $server = $apt_cacher_ng::client::servers[0]
     file { '/etc/apt/apt.conf.d/71proxy':
-      content => "Acquire::http { Proxy \"http://${apt_cacher_ng::client::server}\"; };",
+      content => "Acquire::http { Proxy \"http://${server}\"; };",
     }
     file { '/etc/apt/apt.conf.d/30detectproxy':
       ensure => absent,
@@ -32,21 +25,6 @@ class apt_cacher_ng::client::config {
     }
 
     $show_proxy_messages = bool2num($apt_cacher_ng::client::verbose)
-
-    case $apt_cacher_ng::client::server {
-      '': {
-        case $apt_cacher_ng::client::servers {
-          '':      { fail('must specify either server or servers') }
-          default: { $proxies = $apt_cacher_ng::client::servers }
-        }
-      }
-      default: {
-        case $apt_cacher_ng::servers {
-          '':      { $proxies = [$apt_cacher_ng::client::server] }
-          default: { fail('cannot specify both server and servers') }
-        }
-      }
-    }
 
     file { '/etc/apt/detect-http-proxy':
       content => template('apt_cacher_ng/detect-http-proxy.erb'),
