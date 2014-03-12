@@ -24,11 +24,11 @@ The main class, `apt_cacher_ng` will install the apt_cacher_ng server. You can
 simply include the class, or if you want to install a specific version you can
 use the `version` parameter like the following:
 
-    ```puppet
-    class { 'apt_cacher_ng':
-      version => '0.4.6-1ubuntu1',
-    }
-    ```
+```puppet
+class { 'apt_cacher_ng':
+  version => '0.4.6-1ubuntu1',
+}
+```
 
 * The server will be available on the default port (3142).
 * The server will not use itself as a cache by default.
