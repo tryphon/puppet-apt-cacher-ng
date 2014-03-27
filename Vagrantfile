@@ -5,7 +5,7 @@ Vagrant::Config.run do |config|
   config.vm.define :aptcache do |aptcache|
     aptcache.vm.box = "lucid32"
     aptcache.vm.host_name = "aptcache"
-    aptcache.vm.share_folder "module", "/tmp/vagrant-puppet/modules/apt-cacher-ng", ".", :create => true
+    aptcache.vm.share_folder "module", "/tmp/vagrant-puppet/modules/apt_cacher_ng", ".", :create => true
     aptcache.vm.network :hostonly, "192.168.31.42"
     aptcache.vm.forward_port 3142, 3142
     aptcache.vm.forward_port 22, 2242
