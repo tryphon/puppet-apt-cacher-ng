@@ -13,4 +13,14 @@ class apt_cacher_ng::config {
     owner   => 'apt-cacher-ng',
   }
 
+  $admin_user = $apt_cacher_ng::admin_user
+  $admin_pw = $apt_cacher_ng::admin_pw
+  file { '/etc/apt-cacher-ng/security.conf':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'apt-cacher-ng',
+    mode    => '0640',
+    content => template('apt_cacher_ng/security.conf.erb'),
+  }
+
 }
