@@ -33,6 +33,18 @@ class { 'apt_cacher_ng':
 * The server will be available on the default port (3142).
 * The server will not use itself as a cache by default.
 
+If you'd like to set an admin password for the web interface, you can do so
+with the `admin_user` and `admin_pw` parameters. Make sure to set both
+parameters (or none). Also, keep in mind that only alphanumeric characters,
+dashes and underscores are accepted for the password:
+
+```puppet
+class { 'apt_cacher_ng':
+  admin_user => 'clown_goose',
+  admin_pw   => '12tgDd23456ytGfDW32',
+}
+```
+
 ### Client
 
 The class `apt_cacher_ng::client` helps you configure a server as a client
