@@ -15,10 +15,10 @@ class apt_cacher_ng (
     }
   }
 
-  anchor { 'begin': } ->
+  anchor { 'apt_cacher_ng::begin': } ->
   class { 'apt_cacher_ng::install': } ->
   class { 'apt_cacher_ng::config': } ~>
   class { 'apt_cacher_ng::service': } ->
-  anchor { 'end': }
+  anchor { 'apt_cacher_ng::end': }
 
 }
