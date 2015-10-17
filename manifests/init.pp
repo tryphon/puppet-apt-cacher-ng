@@ -1,22 +1,24 @@
-class apt-cacher-ng {
+class apt_cacher_ng (
+  $version    = 'installed',
+  $admin_user = false,
+  $admin_pw   = false
+) {
 
-  package { apt-cacher-ng: }
-
-  service { apt-cacher-ng: 
-    ensure => running,
-    require => Package[apt-cacher-ng]
+  if $admin_user != false and $admin_pw != false {
+    validate_string($admin_user)
+    validate_string($admin_pw)
+  }
+  else {
+    if ($admin_user != false and $admin_pw == false) or
+       ($admin_user == false and $admin_pw != false) {
+      fail('Please set either none or both of $admin_user and $admin_pw.')
+    }
   }
 
-  file { "/etc/apt-cacher-ng/acng.conf":
-    source => "puppet:///apt-cacher-ng/acng.conf",
-    notify => Service[apt-cacher-ng],
-    require => Package[apt-cacher-ng]
-  }
-
-  file { "/var/cache/apt-cacher-ng":
-    owner => apt-cacher-ng,
-    ensure => directory,
-    require => Package[apt-cacher-ng]
-  }
+  anchor { 'apt_cacher_ng::begin': } ->
+  class { 'apt_cacher_ng::install': } ->
+  class { 'apt_cacher_ng::config': } ~>
+  class { 'apt_cacher_ng::service': } ->
+  anchor { 'apt_cacher_ng::end': }
 
 }

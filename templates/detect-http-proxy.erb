@@ -1,0 +1,42 @@
+#!/bin/bash
+# detect-http-proxy - Returns a HTTP proxy which is available for use
+
+# Author: Lekensteyn <lekensteyn@gmail.com>
+
+# Supported since APT 0.7.25.3ubuntu1 (Lucid) and 0.7.26~exp1 (Debian Squeeze)
+# Unsupported: Ubuntu Karmic and before, Debian Lenny and before
+
+# Original location: http://askubuntu.com/a/54099/53427
+CONF=/etc/apt/proxy.conf
+if [ -f $CONF ]; then
+  source $CONF
+  if [ -z "$show_proxy_messages" ]; then
+    show_proxy_messages=1
+  fi
+  if [ -z "$try_proxies" ]; then
+    echo try_proxies missing in $CONF >&2
+    exit 1
+  fi
+else
+  echo $CONF missing >& 2
+fi
+
+print_msg() {
+    # \x0d clears the line so [Working] is hidden
+    [ "$show_proxy_messages" = 1 ] && printf '\x0d%s\n' "$1" >&2
+}
+
+for proxy in "${try_proxies[@]}"; do
+    # if the host machine / proxy is reachable...
+    if nc -w <%= @timeout %> -z ${proxy/:/ }; then
+        proxy=http://$proxy
+        print_msg "Proxy that will be used: $proxy"
+        echo "$proxy"
+        exit
+    fi
+done
+print_msg "No proxy will be used"
+
+# Workaround for Launchpad bug 654393 so it works with Debian Squeeze (<0.8.11)
+echo DIRECT
+
