@@ -8,7 +8,7 @@ class apt-cacher-ng {
   }
 
   file { "/etc/apt-cacher-ng/acng.conf":
-    source => "puppet:///apt-cacher-ng/acng.conf",
+    source => "puppet:///modules/apt-cacher-ng/acng.conf",
     notify => Service[apt-cacher-ng],
     require => Package[apt-cacher-ng]
   }
